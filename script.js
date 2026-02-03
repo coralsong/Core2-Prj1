@@ -20,7 +20,49 @@ let words = [
   "The Book of Sand",
   "Beginning",
   "End",
+  "First page",
+  "flyleaf",
+  "Last page",
+  "infinite",
+  "religious",
+  "Presbyterian",
+  "Conscience",
+  "Orkney Islands",
+  "Scotland",
+  "Stevenson",
+  "Hume",
+  "Robbie Burns",
+  "British Museum",
+  "Wiclif Bible",
+  "Ancestors",
+  "Bibiliophile",
+  "India",
+  "Norwegian Jail",
+  "The Thousand and One Nights",
+  "Treasure",
+  "Alphabetically",
+  "Insomnia",
+  "Summer",
+  "Monstrous",
+  "Reality",
+  "Fire",
+  "Planet",
+  "Smoke",
+  "Hide",
+  "Leaf",
+  "Forest",
+  "Retirement",
+  "Mexico Street",
+  "Argentine National Library",
+  "Staircase",
+  "Basement",
+  "Maps",
+  "Periodicals",
+  "Door",
+  "Shelves"
 ];
+
+
 
 
 function setup() {
@@ -44,7 +86,7 @@ function draw() {
   background(0);
   fill(255, 0, 0);
 textSize(40);
-text("TEST", width/2, height/2);
+text("Test", width/2, height/2);
 
   // Update and display each snowflake in the array
   let currentTime = frameCount / 1000;
@@ -100,4 +142,8 @@ display() {
   textAlign(CENTER, CENTER);
   text(this.word, this.posX, this.posY);
   }
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
 }
