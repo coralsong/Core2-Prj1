@@ -1,4 +1,4 @@
-body {
+/* body {
   font-family: Arial, sans-serif;
   background: #000000;
   display: flex;
@@ -30,4 +30,4 @@ input:focus {
   font-size: 18px;
   color: #333;
   min-height: 24px; /* prevents layout jumping */
-}
+} */
