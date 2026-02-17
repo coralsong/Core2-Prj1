@@ -9,7 +9,7 @@ if (savedIndex !== null) {
 document.addEventListener("DOMContentLoaded", () => {
 
   // text from the book of sand
-  const messages = [
+  const personA = [
     "I sell Bibles",
     "I don’t only sell Bibles. I can show you a holy book I came across on the outskirts of Bikaner. It may interest you. an infinite number of lines;",
     "I don’t know. I’ve never found out.",
@@ -18,32 +18,41 @@ document.addEventListener("DOMContentLoaded", () => {
     "Mine, however, is true."
   ];
 
+  const personB = [
+    "In this house are several English Bibles, including the first—John Wiclif’s. I also have Cipriano de Valera’s, Luther’s—which, from a literary viewpoint, is the worst—and a Latin copy of the Vulgate. As you see, it’s not exactly Bibles I stand in need of.",
+    "Nineteenth-century, probably,",
+    "",
+    "",
+  ];
+
   let charIndex = 0;
   // enter button is prohibited while message is being typed out. true=message is being typed, false=message is done typing.
   let isTyping = false;
 
   // allows javascript to get text from html
-  const typeEl = document.getElementById("type");
+const typeA = document.getElementById("personA");
+const typeB = document.getElementById("personB");
   const inputEl = document.getElementById("searchInput");
 
   // typing animation
-  function typeMessage(text) {
+function typeMessage(text, element, callback) {
     // locks input
     isTyping = true;
     // clears previous text
-    typeEl.textContent = "";
+    element.textContent = "";
     charIndex = 0;
 
     // types one letter at a time with animation
     function typeChar() {
-      if (charIndex < text.length) {
-        typeEl.textContent += text[charIndex];
-        charIndex++;
-        setTimeout(typeChar, 60);
-      } else {
-        isTyping = false;
-      }
+if (charIndex < text.length) {
+  element.textContent += text[charIndex];
+  charIndex++;
+      setTimeout(typeChar, 60);
+    } else {
+      isTyping = false;
+      if (callback) callback();
     }
+  }
 
     typeChar();
   }
@@ -57,7 +66,11 @@ document.addEventListener("DOMContentLoaded", () => {
       .trim();
   }
 
-  typeMessage(messages[messageIndex]);
+typeMessage(personA[messageIndex], typeA, () => {
+  setTimeout(() => {
+    typeMessage(personB[messageIndex], typeB);
+  }, 500);
+});
 
   // listens to every key pressed, but only react to "enter". 
   inputEl.addEventListener("keydown", (e) => {
@@ -68,7 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // reads what user typed.
     const userText = inputEl.value;
 
-if (normalize(userText) === normalize(messages[messageIndex])) {
+if (normalize(userText) === normalize(personA[messageIndex])) {
   messageIndex++;
   inputEl.value = "";
   
@@ -76,10 +89,14 @@ if (normalize(userText) === normalize(messages[messageIndex])) {
   // save progress
   localStorage.setItem("bookOfSandIndex", messageIndex);
 
-  if (messageIndex < messages.length) {
-    typeMessage(messages[messageIndex]);
+if (messageIndex < personA.length) {
+  typeMessage(personA[messageIndex], typeA, () => {
+    setTimeout(() => {
+      typeMessage(personB[messageIndex], typeB);
+    }, 500);
+  });
   } else {
-    typeEl.textContent = "Done.";
+    typeB.textContent = "Done.";
     inputEl.disabled = true;
     localStorage.removeItem("bookOfSandIndex"); // optional
   }
@@ -87,12 +104,12 @@ if (normalize(userText) === normalize(messages[messageIndex])) {
       // else=if user typed wrong.
     } else {
       // stays on the same message of error.
-      const currentMessage = messages[messageIndex];
+    const currentMessage = personA[messageIndex];
 
-      typeEl.textContent = "Try again.";
+      typeA.textContent = "Try again.";
 
       setTimeout(() => {
-        typeMessage(currentMessage);
+        typeMessage(currentMessage, typeA);
       }, 1200);
     }
   });
