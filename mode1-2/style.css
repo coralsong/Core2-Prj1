@@ -8,22 +8,36 @@ body {
   overflow: hidden;
 }
 
-#type {
+.dialogue {
   position: absolute;
-  top: 30%;
+  top: 38%;
   left: 50%;
-  transform: translate(-50%, -50%);
-
-  color: #ffffff;
-  font-size: 20px;
+  transform: translateX(-50%);
+  width: min(90vw, 640px);
   text-align: center;
+}
+
+#personA {
+  color: white;
+  font-size: 20px;
+  min-height: 24px;
+}
+
+#personB {
+  color: #6aa6ff;
+  font-size: 20px;
+  margin-top: 154px;
   min-height: 24px;
 }
 
 
 .search-container {
-  width: 300px;
+  position: absolute;
+  bottom: 8vh;
+  left: 50%;
   text-align: center;
+  transform: translateX(-50%);
+  width: 1420px;
 }
 
 input {
@@ -45,7 +59,6 @@ input:focus {
   color: #333;
   min-height: 24px; /* prevents layout jumping */
 }
-
 
 
 #button {
@@ -74,15 +87,8 @@ a {
   color: white;
 }
 
-/* #personA {
-  color: white;
-  font-size: 20px;
-  text-align: center;
-} */
-
-#personB {
-  color: #6aa6ff; /* different speaker */
-  font-size: 20px;
-  text-align: center;
-  margin-top: 12px;
-}
+#type {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
