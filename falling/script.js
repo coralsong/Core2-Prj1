@@ -1,6 +1,5 @@
-// document.addEventListener("DOMContentLoaded", () => {
-
-// Define array to hold nouns
+let input;
+let end;
 let nouns = [];
 let words = [
   "bible",
@@ -66,21 +65,30 @@ let words = [
 
 
 
-
+//p5.js
 function setup() {
   createCanvas(windowWidth, windowHeight);
+angleMode(DEGREES);
 
-
-  angleMode(DEGREES);
-
-  // Create snowflake objects
+  // Create words
   for (let i = 0; i < 30; i++) {
-    // Add a new snowflake object to the array
-    nouns.push(new Snowflake());
+    // Add a new word to the array
+    nouns.push(new Word());
   }
 
   // Create screen reader accessible description
   describe('Words falling on a black background.');
+
+  input = createInput('');
+  input.position(550, 640);
+  input.size(300);
+
+  end = createA("http://endless.horse/", "here's a little gift...");
+end.position(550, 700);
+end.style("color", "white");
+end.style("font-size", "20px");
+end.hide();
+
 }
 
 function draw() {
@@ -89,19 +97,26 @@ function draw() {
 textSize(40);
 // text("Test", width/2, height/2);
 
-  // Update and display each snowflake in the array
+  // Update and display each word in the array
   let currentTime = frameCount / 1000;
 
-  for (let flake of nouns) {
-    // Update each snowflake position and display
-    flake.update(currentTime);
-    flake.display();
+  for (let word of nouns) {
+    // Update each word position and display
+    word.update(currentTime);
+    word.display();
   }
-}
 
-// Define the snowflake class
+  if (allWordsGone()) {
+    end.show();
+    end.position(
+      width / 2 - end.width / 2,
+      height / 2
+    );
+    }
+  }
 
-class Snowflake {
+
+class Word {
   constructor() {
   this.posX = 0;
   this.posY = random(-height, 0);
@@ -112,7 +127,10 @@ class Snowflake {
 
   this.word = random(words);
   this.color = color(random(200, 256));
+
+  this.visible = true;
 }
+
 
 
   update(time) {
@@ -135,16 +153,40 @@ class Snowflake {
     }
   }
   
+  
 
 display() {
+  if (!this.visible) return;
+ 
   fill(this.color);
   noStroke();
   textSize(this.size);
   textAlign(CENTER, CENTER);
   text(this.word, this.posX, this.posY);
-  }
+}
 }
 
-function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
+function keyPressed() {
+  if (keyCode === ENTER) {
+    let typedWord = input.value().toLowerCase().trim();
+
+    for (let word of nouns) {
+      if (word.word.toLowerCase() === typedWord) {
+        word.visible = false;
+      }
+    }
+
+    input.value('');
+  } 
 }
+
+
+
+function allWordsGone() {
+  for (let word of nouns) {
+    if (word.visible) {
+      return false;
+    }
+  }
+    return true;
+  }
