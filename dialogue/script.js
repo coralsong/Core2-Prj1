@@ -8,6 +8,23 @@ if (savedIndex !== null) {
 // allows javascript to run after the html page has loaded
 document.addEventListener("DOMContentLoaded", () => {
 
+  const endLink = document.createElement("a");
+endLink.href = "http://endless.horse/";
+endLink.textContent = "here’s a little gift";
+endLink.target = "_blank";
+
+endLink.style.position = "fixed";
+endLink.style.left = "50%";
+endLink.style.top = "50%";
+endLink.style.transform = "translate(-50%, -50%)";
+endLink.style.color = "white";
+endLink.style.fontSize = "24px";
+endLink.style.textDecoration = "none";
+endLink.style.display = "none"; // 👈 hidden at first
+
+document.body.appendChild(endLink);
+
+
   // text from the book of sand
   const personA = [
     "* Late one evening, a few months back, I heard a knock at my door. *",
@@ -150,11 +167,14 @@ inputEl.addEventListener("keydown", (e) => {
         typeMessage(personB[messageIndex], typeB);
       }, 500);
     });
-  } else {
-    typeB.textContent = "Done.";
-    inputEl.disabled = true;
-    localStorage.removeItem("bookOfSandIndex");
-  }
+} else {
+  typeA.textContent = "";
+  typeB.textContent = "";
+  inputEl.disabled = true;
+  localStorage.removeItem("bookOfSandIndex");
+
+  endLink.style.display = "block";
+}
 });
 
 

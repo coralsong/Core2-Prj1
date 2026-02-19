@@ -213,7 +213,7 @@ if (normalize(userText) === normalize(messages[messageIndex])) {
     typeMessage(messages[messageIndex]);
     
   } else {
-    typeEl.textContent = "Done.";
+    typeEl.textContent = "";
     inputEl.disabled = true;
     end.style.display = "block";
     localStorage.removeItem("bookOfSandIndex");
