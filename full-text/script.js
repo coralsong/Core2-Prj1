@@ -1,3 +1,5 @@
+// let end;
+
 // 0 = start at first sentence
 let messageIndex = 0;
 
@@ -8,6 +10,22 @@ if (savedIndex !== null) {
 
 // allows javascript to run after the html page has loaded
 document.addEventListener("DOMContentLoaded", () => {
+
+  const end = document.createElement("a");
+  end.href = "http://endless.horse/";
+  end.textContent = "here's a little gift...";
+  end.target = "_blank";
+
+  end.style.position = "fixed";
+  end.style.top = "50%";
+  end.style.left = "50%";
+  end.style.transform = "translate(-50%, -50%)";
+  end.style.color = "white";
+  end.style.fontSize = "24px";
+  end.style.zIndex = "100";
+  end.style.display = "none";
+
+  document.body.appendChild(end);
 
   // text from the book of sand
   const messages = [
@@ -193,9 +211,11 @@ if (normalize(userText) === normalize(messages[messageIndex])) {
 
   if (messageIndex < messages.length) {
     typeMessage(messages[messageIndex]);
+    
   } else {
     typeEl.textContent = "Done.";
     inputEl.disabled = true;
+    end.style.display = "block";
     localStorage.removeItem("bookOfSandIndex");
   }
 
